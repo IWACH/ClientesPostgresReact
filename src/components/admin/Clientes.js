@@ -2,6 +2,7 @@ import { map } from "lodash";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as Axios from "axios";
+import moment from "moment";
 
 const Clientes = () => {
   const [clientesData, setClientesData] = useState([]);
@@ -36,13 +37,13 @@ const Clientes = () => {
             </tr>
           </thead>
           <tbody>
-            {map(clientesData, (cliente) => {
+            {map(clientesData, (cliente, ix) => {
               return (
-                <tr>
+                <tr key={ix}>
                   <th>{cliente.id}</th>
                   <td>{cliente.nombre}</td>
                   <td>{cliente.apellido} </td>
-                  <td>{cliente.nacimiento}</td>
+                  <td>{moment(cliente.fecnac).format("DD-MM-YYYY")}</td>
                   <td>{cliente.edad}</td>
                   <td>
                     <Link

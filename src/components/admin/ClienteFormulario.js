@@ -83,18 +83,23 @@ const ClienteFormulario = () => {
             </div>
           </div>
         </section>
-        <footer className="footer">
-          <button className="button is-success" onClick={save}>
-            Guardar
-          </button>
+        <footer>
+          <div className="buttons is-flex is-justify-content-space-between">
+            {!isNew ? (
+              <button className="button is-danger" onClick={remove}>
+                Delete
+              </button>
+            ) : <div/>}
 
-          <Link className="button" to="/clientes">
-            Cancelar
-          </Link>
-
-         {!isNew ? <button className="button is-danger" onClick={remove}>
-            Delete
-          </button> : null}
+            <div className="buttons">
+              <Link className="button" to="/clientes">
+                Cancelar
+              </Link>
+              <button className="button is-success" onClick={save}>
+                Guardar
+              </button>
+            </div>
+          </div>
         </footer>
       </article>
     </div>

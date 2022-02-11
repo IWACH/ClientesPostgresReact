@@ -3,7 +3,6 @@ import { map } from "lodash";
 
 import * as Axios from "axios";
 import moment from "moment";
-//import clientesData from "../data/dataClientes.json";
 
 const Inicio = () => {
   const [clientesData, setClientesData] = useState([]);
@@ -32,7 +31,7 @@ const Inicio = () => {
       <div className="columns is-multiline is-mobile">
         {map(clientesData, (cliente, ix) => {
           return (
-            <div className="column">
+            <div className="column" key={ix}>
               <div className="card cards">
                 <div className="card-content content">
                   <div className="is-flex is-flex-direction-row">
@@ -47,7 +46,7 @@ const Inicio = () => {
                   </div>
 
                   <div className="content">
-                    <div>{moment(cliente.fecnac).format("L")}</div>
+                    <div>{moment(cliente.fecnac).format("DD/MM/YYYY")}</div>
                     <div>{cliente.edad}</div>
                   </div>
                 </div>
