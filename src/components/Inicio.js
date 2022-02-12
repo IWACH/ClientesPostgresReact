@@ -42,7 +42,7 @@ const Inicio = () => {
      {loading === false ? <div className="columns is-multiline is-mobile">
         {map(clientesData, (cliente, ix) => {
           return (
-            <div className="column is-one-fifth" key={ix}>
+            <div className="column" key={ix}>
               <div className="card cards ">
                 <div className="card-content content">
                   <div className="is-flex is-flex-direction-row">
