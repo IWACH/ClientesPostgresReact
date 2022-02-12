@@ -50,8 +50,8 @@ const Inicio = () => {
                   </div>
 
                   <div className="content">
-                    <div>{moment(cliente.fecnac).format("DD/MM/YYYY")}</div>
-                    <div>{cliente.edad}</div>
+                    <div><i class="fa-solid fa-cake-candles mr-3"></i>{moment(cliente.fecnac).format("DD/MM/YYYY")}</div>
+                    <div>Edad: {cliente.edad}</div>
                   </div>
                 </div>
               </div>
