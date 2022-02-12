@@ -22,10 +22,14 @@ const Inicio = () => {
     <div className="inicio is-flex is-flex-direction-column">
       <div className="is-flex is-flex-direction-column ">
         <div className="title is-align-self-center">LISTA DE CLIENTES</div>
-        {promedioEdad?<div>
-          <span className="subtitle">Edad promedio: </span>
-          <span className="tag is-success tag-age mb-4">{promedioEdad}</span>
-        </div>: null}
+        {promedioEdad ? (
+          <div>
+            <span className="subtitle">Edad promedio: </span>
+            <span className="tag is-success tag-age mb-4">
+              {Math.round(promedioEdad * 10) / 10}
+            </span>
+          </div>
+        ) : null}
       </div>
 
       <div className="columns is-multiline is-mobile">
