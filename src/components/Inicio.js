@@ -9,11 +9,11 @@ const Inicio = () => {
   const [promedioEdad, setPromedioEdad] = useState(0);
 
   useEffect(() => {
-    Axios.get("clientes").then((response) => {
+    Axios.get("/api/clientes").then((response) => {
       setClientesData(response.data);
     });
 
-    Axios.get("clientes/promedio-edad").then((response) => {
+    Axios.get("/api/clientes/promedio-edad").then((response) => {
       setPromedioEdad(response.data.promedio);
     });
   }, []);

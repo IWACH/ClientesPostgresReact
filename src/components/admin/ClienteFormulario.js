@@ -13,7 +13,7 @@ const ClienteFormulario = () => {
 
   useEffect(() => {
     if (!isNew) {
-      Axios.get(`/cliente/${id}`).then((response) => {
+      Axios.get(`/api/cliente/${id}`).then((response) => {
         setNombre(response.data.nombre);
         setApellido(response.data.apellido);
         setFecNac(moment(response.data.fecnac).format("YYYY-MM-DD"));
@@ -23,12 +23,14 @@ const ClienteFormulario = () => {
 
   const save = () => {
     if (isNew) {
-      Axios.post("/cliente", { nombre, apellido, fecnac }).then((response) => {
+      Axios.post("/api/cliente", { nombre, apellido, fecnac }).then((response) => {
+        console.log("CAMBIOOO", fecnac);
         navigate("/clientes");
       });
     } else {
-      Axios.put(`/cliente/${id}`, { nombre, apellido, fecnac }).then(
+      Axios.put(`/api/cliente/${id}`, { nombre, apellido, fecnac }).then(
         (response) => {
+          console.log(fecnac);
           navigate("/clientes");
         }
       );
@@ -36,7 +38,7 @@ const ClienteFormulario = () => {
   };
 
   const remove = () => {
-    Axios.delete(`/cliente/${id}`, { nombre, apellido, fecnac }).then(
+    Axios.delete(`/api/cliente/${id}`, { nombre, apellido, fecnac }).then(
       (response) => {
         navigate("/clientes");
       }

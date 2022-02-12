@@ -8,7 +8,7 @@ const Clientes = () => {
   const [clientesData, setClientesData] = useState([]);
 
   useEffect(() => {
-    Axios.get("clientes").then((response) => {
+    Axios.get("/api/clientes").then((response) => {
       setClientesData(response.data);
     });
   }, []);
