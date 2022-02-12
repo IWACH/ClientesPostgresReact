@@ -7,10 +7,12 @@ import moment from "moment";
 const Inicio = () => {
   const [clientesData, setClientesData] = useState([]);
   const [promedioEdad, setPromedioEdad] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Axios.get("/api/clientes").then((response) => {
       setClientesData(response.data);
+      setLoading(false);
     });
 
     Axios.get("/api/clientes/promedio-edad").then((response) => {
@@ -22,6 +24,11 @@ const Inicio = () => {
     <div className="inicio is-flex is-flex-direction-column">
       <div className="is-flex is-flex-direction-column ">
         <div className="title is-align-self-center">LISTA DE CLIENTES</div>
+        {loading ? (
+          <progress class="progress is-small is-primary" max="100">
+            15%
+          </progress>
+        ) : null}
         {promedioEdad ? (
           <div>
             <span className="subtitle">Edad promedio: </span>
@@ -32,11 +39,11 @@ const Inicio = () => {
         ) : null}
       </div>
 
-      <div className="columns is-multiline is-mobile">
+     {loading === false ? <div className="columns is-multiline is-mobile">
         {map(clientesData, (cliente, ix) => {
           return (
-            <div className="column" key={ix}>
-              <div className="card cards">
+            <div className="column is-one-fifth" key={ix}>
+              <div className="card cards ">
                 <div className="card-content content">
                   <div className="is-flex is-flex-direction-row">
                     <div className="tag-name is-flex is-align-items-center is-justify-content-center">
@@ -50,7 +57,10 @@ const Inicio = () => {
                   </div>
 
                   <div className="content">
-                    <div><i class="fa-solid fa-cake-candles mr-3"></i>{moment(cliente.fecnac).format("DD/MM/YYYY")}</div>
+                    <div>
+                      <i class="fa-solid fa-cake-candles mr-3"></i>
+                      {moment(cliente.fecnac).format("DD/MM/YYYY")}
+                    </div>
                     <div>Edad: {cliente.edad}</div>
                   </div>
                 </div>
@@ -58,7 +68,7 @@ const Inicio = () => {
             </div>
           );
         })}
-      </div>
+      </div>: null}
     </div>
   );
 };
