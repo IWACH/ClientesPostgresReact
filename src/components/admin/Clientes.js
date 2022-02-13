@@ -20,12 +20,12 @@ const Clientes = () => {
       <div className="content">
         <h2>Mantenimiento de clientes</h2>
         {loading ? (
-          <progress class="progress is-small is-primary" max="100">
+          <progress className="progress is-small is-primary" max="100">
             15%
           </progress>
         ) : null}
         {loading === false ? (
-          <div className="table-container is-hidden-mobile ">
+          <div className="table-container is-hidden-mobile">
             <table className="table is-fullwidth is-striped is-hoverable">
               <thead>
                 <tr>
@@ -72,7 +72,7 @@ const Clientes = () => {
         ) : null}
 
         {loading === false ? (
-          <div className="is-hidden-desktop">
+          <div className="is-hidden-desktop is-hidden-tablet">
             <Link className="button is-primary is-fullwidth" to="/cliente/new">
               Crear
             </Link>

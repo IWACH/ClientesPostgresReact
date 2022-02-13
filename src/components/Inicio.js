@@ -25,7 +25,7 @@ const Inicio = () => {
       <div className="is-flex is-flex-direction-column ">
         <div className="title is-align-self-center">LISTA DE CLIENTES</div>
         {loading ? (
-          <progress class="progress is-small is-primary" max="100">
+          <progress className="progress is-small is-primary" max="100">
             15%
           </progress>
         ) : null}
