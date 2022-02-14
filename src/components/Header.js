@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [openAdmin, setopenAdmin] = useState(false);
   return (
     <nav
       className="navbar header"
@@ -34,19 +35,28 @@ export const Header = () => {
         onClick={() => setOpenMenu(false)}
       >
         <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">Admin</a>
+          <div className="navbar-item" onClick={()=> setopenAdmin(!openAdmin)}>
+            <div className={openAdmin ? "navbar-item has-dropdown is-active" : "navbar-item has-dropdown"}>
+              
+                <a className="navbar-link">Admin</a>
 
-              <div className="navbar-dropdown is-right">
-                <Link className="navbar-item" to="/">
-                  Inicio
-                </Link>
-                <Link className="navbar-item" to="/clientes">
-                  Clientes
-                </Link>
+                <div className="navbar-dropdown is-right">
+                  <Link
+                    className="navbar-item"
+                    to="/"
+                    onClick={() => setopenAdmin(!openAdmin)}
+                  >
+                    Inicio
+                  </Link>
+                  <Link
+                    className="navbar-item"
+                    to="/clientes"
+                    onClick={() => setopenAdmin(!openAdmin)}
+                  >
+                    Clientes
+                  </Link>
+                </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
