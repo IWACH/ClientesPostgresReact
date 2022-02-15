@@ -20,6 +20,13 @@ const Inicio = () => {
     });
   }, []);
 
+  const shortInputValue = (value) => {
+    if (value.length > 8) {
+      return value.substring(0, 5) + "...";
+    }
+    return value;
+  };
+
   return (
     <div className="inicio is-flex is-flex-direction-column">
       <div className="is-flex is-flex-direction-column ">
@@ -39,10 +46,10 @@ const Inicio = () => {
         ) : null}
       </div>
 
-     {loading === false ? <div className="columns is-multiline is-mobile">
+     {loading === false ? <div className="columns is-mobile is-multiline">
         {map(clientesData, (cliente, ix) => {
           return (
-            <div className="column" key={ix}>
+            <div className="column is-narrow" key={ix}>
               <div className="card cards ">
                 <div className="card-content content">
                   <div className="is-flex is-flex-direction-row">
@@ -50,9 +57,9 @@ const Inicio = () => {
                       <span className="">S</span>
                     </div>
                     <div className="">
-                      <span className="title is-4">{cliente.nombre}</span>
+                      <span className="title is-4">{shortInputValue(cliente.nombre)}</span>
                       <br />
-                      <span className="subtitle is-6">{cliente.apellido}</span>
+                      <span className="subtitle is-6">{shortInputValue(cliente.apellido)}</span>
                     </div>
                   </div>
 

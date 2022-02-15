@@ -15,6 +15,20 @@ const Clientes = () => {
     });
   }, []);
 
+  const shortInputValueDesktop = (value) => {
+    if (value.length > 15) {
+      return value.substring(0, 15) + "...";
+    }
+    return value;
+  };
+
+  const shortInputValueMobile = (value) => {
+    if (value.length > 6) {
+      return value.substring(0, 4) + "...";
+    }
+    return value;
+  };
+
   return (
     <div>
       <div className="content">
@@ -49,8 +63,8 @@ const Clientes = () => {
                   return (
                     <tr key={ix}>
                       <th>{cliente.id}</th>
-                      <td>{cliente.nombre}</td>
-                      <td>{cliente.apellido} </td>
+                      <td>{shortInputValueDesktop(cliente.nombre)}</td>
+                      <td>{shortInputValueDesktop(cliente.apellido)} </td>
                       <td>{moment(cliente.fecnac).format("DD-MM-YYYY")}</td>
                       <td>{cliente.edad}</td>
                       <td>
@@ -88,8 +102,8 @@ const Clientes = () => {
                 {map(clientesData, (cliente, ix) => {
                   return (
                     <tr key={ix}>
-                      <td>{cliente.nombre}</td>
-                      <td>{cliente.apellido} </td>
+                      <td>{shortInputValueMobile(cliente.nombre)}</td>
+                      <td>{shortInputValueMobile(cliente.apellido)} </td>
                       <td>
                         <div className="is-flex is-justify-content-space-around">
                           {moment(cliente.fecnac).format("DD-MM-YYYY")}
