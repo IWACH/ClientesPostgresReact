@@ -2,15 +2,25 @@ import * as Axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
 
 const ClienteFormulario = () => {
   const navigate = useNavigate();
+  const notify = (message) =>
+    toast.warn(message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   const { id } = useParams();
   const isNew = id === "new";
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [fecnac, setFecNac] = useState("");
-  const [validacion, setValidacion] = useState(false);
 
   useEffect(() => {
     if (!isNew) {
@@ -22,12 +32,6 @@ const ClienteFormulario = () => {
     }
   }, [isNew, id]);
 
-  useEffect(() => {
-    if (validacion === true) {
-      setTimeout(()=>setValidacion(false), 5000);
-    }
-  }, [validacion]);
-
   const save = () => {
     if (isNew) {
       Axios.post("/api/cliente", { nombre, apellido, fecnac }).then(
@@ -38,7 +42,6 @@ const ClienteFormulario = () => {
     } else {
       Axios.put(`/api/cliente/${id}`, { nombre, apellido, fecnac }).then(
         (response) => {
-          console.log(fecnac);
           navigate("/clientes");
         }
       );
@@ -53,24 +56,44 @@ const ClienteFormulario = () => {
     );
   };
 
-  const validation = () => {
+  const emptyInput = () => {
     if (nombre === "" || apellido === "" || fecnac === "") {
-      setValidacion(true);
+      return true;
+    }
+  };
+
+  const dateInput = () => {
+    if (
+      moment(fecnac) > moment() ||
+      moment(fecnac) < moment().subtract(100, "years")
+    ) {
+      return true;
+    }
+  };
+
+  const validationData = () => {
+    if (emptyInput()) {
+      return notify("Todos los datos son requeridos.");
+    } else if (dateInput()) {
+      return notify("Fecha incorrecta.");
+    } else {
+      save();
+    }
+  };
+
+  const inputValidation = (setIdentifierState, event) => {
+    const { value } = event.target;
+    let regex = new RegExp("^[a-zA-Z ]+$");
+    if (regex.test(value) || value === "") {
+      setIdentifierState(value);
+    } else {
+      return notify("No se permiten caracteres especiales.");
     }
   };
 
   return (
     <div>
-      {console.log(fecnac)}
-      {validacion ? (
-        <div className="notification is-danger is-light">
-          <button
-            className="delete"
-            onClick={() => setValidacion(false)}
-          ></button>
-          Completar correctamente los campos requeridos
-        </div>
-      ) : null}
+      <ToastContainer />
       <div className="box">
         <article>
           <header className="header title">
@@ -84,7 +107,7 @@ const ClienteFormulario = () => {
                   className="input"
                   type="text"
                   value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
+                  onChange={(e) => inputValidation(setNombre, e)}
                   placeholder="Nombre"
                 />
               </div>
@@ -94,7 +117,7 @@ const ClienteFormulario = () => {
                   className="input"
                   type="text"
                   value={apellido}
-                  onChange={(e) => setApellido(e.target.value)}
+                  onChange={(e) => inputValidation(setApellido, e)}
                   placeholder="Apeliido"
                 />
               </div>
@@ -124,13 +147,7 @@ const ClienteFormulario = () => {
                 <Link className="button" to="/clientes">
                   Cancelar
                 </Link>
-                <button
-                  className="button is-success"
-                  onClick={() => {
-                    validation();
-                    save();
-                  }}
-                >
+                <button className="button is-success" onClick={validationData}>
                   Guardar
                 </button>
               </div>

@@ -33,7 +33,6 @@ const createCliente = async (req, res, next) => {
     Cliente.create(cliente)
       .then((data) => {
         res.send(data);
-        console.log("AQUIII", data);
       })
       .catch((err) => {
         res.status(500).send({
