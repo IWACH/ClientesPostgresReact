@@ -46,10 +46,10 @@ const Inicio = () => {
         ) : null}
       </div>
 
-     {loading === false ? <div className="columns is-mobile is-multiline">
+     {loading === false ? <div className="columns is-desktop is-flex-tablet is-multiline">
         {map(clientesData, (cliente, ix) => {
           return (
-            <div className="column is-narrow" key={ix}>
+            <div className="column inicio" key={ix}>
               <div className="card cards ">
                 <div className="card-content content">
                   <div className="is-flex is-flex-direction-row">
