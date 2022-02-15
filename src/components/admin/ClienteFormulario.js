@@ -8,6 +8,7 @@ const ClienteFormulario = () => {
   const navigate = useNavigate();
   const notify = (message) =>
     toast.warn(message, {
+      toastId: message,
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -16,6 +17,7 @@ const ClienteFormulario = () => {
       draggable: true,
       progress: undefined,
     });
+
   const { id } = useParams();
   const isNew = id === "new";
   const [nombre, setNombre] = useState("");
@@ -32,7 +34,7 @@ const ClienteFormulario = () => {
     }
   }, [isNew, id]);
 
-  const save = () => {
+  const save = (nombre, apellido) => {
     if (isNew) {
       Axios.post("/api/cliente", { nombre, apellido, fecnac }).then(
         (response) => {
@@ -56,8 +58,10 @@ const ClienteFormulario = () => {
     );
   };
 
-  const emptyInput = () => {
+  const emptyInput = (name, lastName) => {
     if (nombre === "" || apellido === "" || fecnac === "") {
+      return true;
+    } else if (name.length === 0 || lastName.length === 0) {
       return true;
     }
   };
@@ -72,12 +76,14 @@ const ClienteFormulario = () => {
   };
 
   const validationData = () => {
-    if (emptyInput()) {
+    const name = nombre.trim();
+    const lastName = apellido.trim();
+    if (emptyInput(name, lastName)) {
       return notify("Todos los datos son requeridos.");
     } else if (dateInput()) {
       return notify("Fecha incorrecta.");
     } else {
-      save();
+      save(name, lastName);
     }
   };
 
@@ -93,7 +99,7 @@ const ClienteFormulario = () => {
 
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer limit={0} />
       <div className="box">
         <article>
           <header className="header title">
