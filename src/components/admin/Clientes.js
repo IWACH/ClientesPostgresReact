@@ -95,7 +95,7 @@ const Clientes = () => {
                 <tr>
                   <th>Nombre</th>
                   <th>Apellido</th>
-                  <th>Fecha Nacimiento</th>
+                  <th>Fecha Nacimiento </th>
                 </tr>
               </thead>
               <tbody>
